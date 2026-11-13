@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إلتئام | التقنية المتقدمة للعناية بالندبات وإغلاق الجروح</title>
+    <!-- استيراد خط أنيق من Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c7a7b;
+            --secondary-color: #319795;
+            --accent-color: #e6fffa;
+            --text-color: #2d3748;
+            --bg-color: #f7fafc;
+            --white: #ffffff;
+            --gray: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        section {
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 5px;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        /* تنسيق الأداة التفاعلية لـ POSAS */
+        .posas-tool {
+            background: var(--accent-color);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #b2f5ea;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        select, input[type="range"] {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid var(--gray);
+            font-size: 1rem;
+        }
+
+        .range-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .range-value {
+            font-weight: bold;
+            color: var(--primary-color);
+            min-width: 30px;
+            text-align: center;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            display: block;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #234e52;
+        }
+
+        #result-box {
+            margin-top: 20px;
+            padding: 15px;
+            background: var(--white);
+            border-radius: 6px;
+            border: 1px solid var(--primary-color);
+            display: none;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #718096;
+            font-size: 0.9rem;
+            border-top: 1px solid var(--gray);
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>مشروع إلتئام</h1>
+        <p>رؤية متقدمة لشفاء الجروح وتقليل الندبات بفعالية واحترافية</p>
+    </header>
+
+    <div class="container">
+        
+        <!-- نبذة عن المشروع -->
+        <section>
+            <h2>عن المشروع</h2>
+            <p><strong>إلتئام</strong> هو مشروع طبي تكنولوجي يدمج بين تقنية الشد العكسي الميكانيكي ومصفوفة بوليمرية متطورة محملة بمستخلصات نباتية فريدة، صُمم خصيصاً ليُستخدم باحترافية في المؤسسات الصحية أو ذاتياً من قِبل المريض في الحالات المستعجلة لإغلاق الجروح وتحسين جودة الندبات.</p>
+        </section>
+
+        <!-- أداة متتبع الندبات الذكي POSAS -->
+        <section>
+            <h2>أداة متابعة الندبات (معيار POSAS)</h2>
+            <p>قيّمي حالة ندبتك أسبوعياً لمتابعة رحلة التعافي والحصول على تقييم دقيق بناءً على المعايير الطبية العالمية.</p>
+            
+            <div class="posas-tool">
+                <div class="form-group">
+                    <label for="user-type">اختر صفة المستخدم:</label>
+                    <select id="user-type" onchange="toggleForm()">
+                        <option value="patient">مريض (تقييم ذاتي)</option>
+                        <option value="observer">طبيب / مراقب (تقييم إكلينيكي)</option>
+                    </select>
+                </div>
+
+                <!-- أسئلة المريض -->
+                <div id="patient-questions">
+                    <div class="form-group">
+                        <label>1. الألم: هل شعرت بأي ألم في منطقة الندبة مؤخراً؟ (1: لا يوجد، 10: شديد)</label>
+                        <div class="range-container">
+                            <input type="range" min="1" max="10" value="1" id="p-pain" oninput="updateVal('p-pain', 'val-pain')">
+                            <span class="range-value" id="val-pain">1</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>2. الحكة: هل عانيت من شعور بالحكة في الندبة؟ (1: لا شيء، 10: شديد جداً)</label>
+                        <div class="range-container">
+                            <input type="range" min="1" max="10" value="1" id="p-itch" oninput="updateVal('p-itch', 'val-itch')">
+                            <span class="range-value" id="val-itch">1</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>3. اللون: مدى اختلاف لون الندبة عن الجلد الطبيعي؟ (1: متطابق، 10: مختلف تماماً)</label>
+                        <div class="range-container">
+                            <input type="range" min="1" max="10" value="1" id="p-color" oninput="updateVal('p-color', 'val-color')">
+                            <span class="range-value" id="val-color">1</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>4. الصلابة: هل تبدو الندبة صلبة مقارنة بالجلد العادي؟ (1: لينة، 10: صلبة جداً)</label>
+                        <div class="range-container">
+                            <input type="range" min="1" max="10" value="1" id="p-stiff" oninput="updateVal('p-stiff', 'val-stiff')">
+                            <span class="range-value" id="val-stiff">1</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- أسئلة الطبيب (مخفية افتراضياً) -->
+                <div id="observer-questions" style="display: none;">
+                    <div class="form-group">
+                        <label>1. التوعية الدموية (Vascularity): درجة الاحمرار أو الأوعية الظاهرة (1-10)</label>
+                        <div class="range-container">
+                            <input type="range" min="1" max="10" value="1" id="o-vasc" oninput="updateVal('o-vasc', 'val-vasc')">
+                            <span class="range-value" id="val-vasc">1</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>2. التصبغ (Pigmentation): درجة التلون الجلدي (1-10)</label>
+                        <div class="range-container">
+                            <input type="range" min="1" max="10" value="1" id="o-pig" oninput="updateVal('o-pig', 'val-pig')">
+                            <span class="range-value" id="val-pig">1</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>3. السمك (Thickness): ارتفاع النسيج الندبي (1-10)</label>
+                        <div class="range-container">
+                            <input type="range" min="1" max="10" value="1" id="o-thick" oninput="updateVal('o-thick', 'val-thick')">
+                            <span class="range-value" id="val-thick">1</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>4. المرونة (Pliability): مدى ليونة النسيج الندبي (1-10)</label>
+                        <div class="range-container">
+                            <input type="range" min="1" max="10" value="1" id="o-pli" oninput="updateVal('o-pli', 'val-pli')">
+                            <span class="range-value" id="val-pli">1</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button onclick="calculateScore()">احسب مؤشر التحسن</button>
+
+                <div id="result-box">
+                    <h3 style="color: var(--primary-color); margin-bottom: 8px;">نتيجة التقييم:</h3>
+                    <p id="result-text"></p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>جميع الحقوق محفوظة لمشروع إلتئام (ILTIAM) &copy; 2026</p>
+    </footer>
+
+    <script>
+        // تحديث قيم أشرطة التمرير تلقائياً
+        function updateVal(sliderId, spanId) {
+            const val = document.getElementById(sliderId).value;
+            document.getElementById(spanId).innerText = val;
+        }
+
+        // التبديل بين نموذج المريض والطبيب
+        function toggleForm() {
+            const type = document.getElementById('user-type').value;
+            if (type === 'patient') {
+                document.getElementById('patient-questions').style.display = 'block';
+                document.getElementById('observer-questions').style.display = 'none';
+            } else {
+                document.getElementById('patient-questions').style.display = 'none';
+                document.getElementById('observer-questions').style.display = 'block';
+            }
+            document.getElementById('result-box').style.display = 'none';
+        }
+
+        // حساب النتيجة البسيطة وإظهار التوصية
+        function calculateScore() {
+            const type = document.getElementById('user-type').value;
+            let total = 0;
+            
+            if (type === 'patient') {
+                total = parseInt(document.getElementById('p-pain').value) +
+                        parseInt(document.getElementById('p-itch').value) +
+                        parseInt(document.getElementById('p-color').value) +
+                        parseInt(document.getElementById('p-stiff').value);
+            } else {
+                total = parseInt(document.getElementById('o-vasc').value) +
+                        parseInt(document.getElementById('o-pig').value) +
+                        parseInt(document.getElementById('o-thick').value) +
+                        parseInt(document.getElementById('o-pli').value);
+            }
+
+            const resultBox = document.getElementById('result-box');
+            const resultText = document.getElementById('result-text');
+            
+            resultBox.style.display = 'block';
+            
+            if (total <= 10) {
+                resultText.innerHTML = `مجموع النقاط: <strong>${total} / 40</strong> - مؤشر ممتاز! استمري في استخدام رقعة "إلتئام" للحفاظ على هذه النتيجة الرائعة وترطيب الجلد.`;
+            } else if (total <= 25) {
+                resultText.innerHTML = `مجموع النقاط: <strong>${total} / 40</strong> - مؤشر متوسط. الحالة في تحسن مستمر، يُنصح بالانتظام في الاستخدام ومراقبة التغيرات أسبوعياً.`;
+            } else {
+                resultText.innerHTML = `مجموع النقاط: <strong>${total} / 40</strong> - النقاط مرتفعة نسبياً. يُفضل استشارة الطبيب المختص ومراجعة بروتوكول العناية بالندبة.`;
+            }
+        }
+    </script>
+
+</body>
+</html>
